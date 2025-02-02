@@ -27,12 +27,15 @@ def validate_input(user_input, board):
 
 def make_a_move(user_coordinates, board):
     x, y = user_coordinates[:2]
-    board[x][y] = "X"
-    if check_win("X", board):
-        draw_board(board)
-        sys.exit("You are the winner!")
     comp_x = 0
     comp_y = 0
+    player = "X"
+    computer = "O"
+
+    board[x][y] = player
+    if check_win(player, board):
+        draw_board(board)
+        sys.exit("You are the winner!")
 
     board_has_space = False
     for row in board:
@@ -43,17 +46,14 @@ def make_a_move(user_coordinates, board):
         draw_board(board)
         sys.exit("It's a tie!")
 
-    board_has_space = False
     while True:
         comp_x = random.randint(0, 2)
         comp_y = random.randint(0, 2)
         if board[comp_x][comp_y] == "":
-            board[comp_x][comp_y] = "O"
+            board[comp_x][comp_y] = computer
             break
 
-        if "" in board:
-            print("we have an empty space!")
-    if check_win("O", board):
+    if check_win(computer, board):
         draw_board(board)
         sys.exit("Computer wins!")
 
